@@ -52,7 +52,7 @@ class SportPaymentDetail extends Component
 
         $validatedData = $this->validate([
             'cardName' => 'required|string|max:255',
-            'cardNum' => 'required|string|regex:/^[0-9\s]{16,19}$/',
+            'cardNum' => 'required|string|regex:/^\d{16}$/|max:16',
             'expMonth' => ['required', 'string', 'size:2', 'regex:/^(0[1-9]|1[0-2])$/'],
             'expYear' => 'required|integer|min:' . now()->year,
             'cvv' => 'required|string|digits:3',

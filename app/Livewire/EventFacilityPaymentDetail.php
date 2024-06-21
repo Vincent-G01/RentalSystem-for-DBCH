@@ -56,7 +56,7 @@ class EventFacilityPaymentDetail extends Component
     
         $validatedData = $this->validate([
             'cardName' => 'required|string|max:255',
-            'cardNum' => 'required|string|regex:/^[0-9\s]{16,19}$/',
+            'cardNum' => 'required|string|regex:/^\d{16}$/|max:16',
             'expMonth' => ['required', 'string', 'size:2', 'regex:/^(0[1-9]|1[0-2])$/'],
             'expYear' => 'required|integer|min:' . now()->year,
             'cvv' => 'required|string|digits:3',
@@ -73,12 +73,6 @@ class EventFacilityPaymentDetail extends Component
             $booking = event_facility_bookings::findOrFail($this->bookingId);
             $booking->confirmed = true;
             $booking->save();
-    
-            // Disable date for other bookings
-            event_facility_bookings::where('use_date', $booking->use_date)
-                ->where('halls_id', $booking->halls_id)
-                ->where('events_id', $booking->events_id)
-                ->update(['confirmed' => 1]);
     
             DB::commit();
             session()->flash('success', 'Payment completed successfully!');
@@ -97,7 +91,4 @@ class EventFacilityPaymentDetail extends Component
             'facilities' => $this->facilities,
         ]);
     }
-    
-
-    
 }

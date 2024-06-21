@@ -1,4 +1,3 @@
-<!-- resources/views/livewire/my-booking-records.blade.php -->
 <div class="container mx-auto px-4 py-8">
     <h2 class="text-2xl font-semibold mb-6">My Booking Records</h2>
 
@@ -20,7 +19,7 @@
                     <li class="mb-4">
                         <div class="p-4 bg-gray-100 rounded-md">
                             <p><strong>Date:</strong> {{ $booking->formatted_date }}</p>
-                            <p><strong>Sport:</strong> {{ $booking->sports->name ?? 'N/A' }}</p>
+                            <p><strong>Sport:</strong> {{ $booking->Sports->name ?? 'N/A' }}</p>
                             <p><strong>Hall:</strong> {{ $booking->halls->name ?? 'N/A' }}</p>
                             <p><strong>Court:</strong> {{ $booking->bookedCourts->pluck('court_number')->join(', ') }}</p>
                             <p><strong>Time Slot:</strong>
@@ -48,18 +47,17 @@
                             <p><strong>Date:</strong> {{ $booking->formatted_date }}</p>
                             <p><strong>Hall:</strong> {{ $booking->halls->name ?? 'N/A' }}</p>
                             <p><strong>Event:</strong> {{ $booking->events->name ?? 'N/A' }}</p>
-                            
-                            {{-- @if($booking->bookedFacilities->isNotEmpty())
+                            @if($booking->bookedFacilities->isNotEmpty())
                                 <h4 class="font-semibold mt-4">Facilities:</h4>
                                 <ul>
                                     @foreach ($booking->bookedFacilities as $facility)
                                         <li>{{ $facility->facility->name ?? 'N/A' }} - {{ $facility->quantity }}</li>
                                     @endforeach
                                 </ul>
-                            @endif --}}
+                            @endif
                             <p><strong>Total Amount:</strong> RM{{ number_format($booking->total_amount, 2) }}</p>
                             <p><strong>Confirmed:</strong> {{ $booking->confirmed ? 'Yes' : 'No' }}</p>
-                            <p>*Deposit Rm200 is included into Total Amount*</p>
+                            <p>*Deposit RM200 is included in the Total Amount*</p>
                         </div>
                     </li>
                 @empty
@@ -76,8 +74,8 @@
                     <li class="mb-4">
                         <div class="p-4 bg-gray-100 rounded-md">
                             <p><strong>Date:</strong> {{ $booking->formatted_date }}</p>
-                            <p><strong>Sport:</strong> {{ $booking->sports->name ?? 'N/A' }}</p>
-                            <p><strong>Hall:</strong> {{ $booking->halls->name ?? 'N/A' }}</p>
+                            <p><strong>Sport:</strong> {{ $booking->Sports->name ?? 'N/A' }}</p>
+                            <p><strong>Hall:</strong> {{ $booking->Halls->name ?? 'N/A' }}</p>
                             <p><strong>Court:</strong> {{ $booking->bookedCourts->pluck('court_number')->join(', ') }}</p>
                             <p><strong>Time Slot:</strong>
                                 @foreach ($booking->bookedCourts as $court)
@@ -104,17 +102,17 @@
                             <p><strong>Date:</strong> {{ $booking->formatted_date }}</p>
                             <p><strong>Hall:</strong> {{ $booking->halls->name ?? 'N/A' }}</p>
                             <p><strong>Event:</strong> {{ $booking->events->name ?? 'N/A' }}</p>
-                            {{-- @if($booking->bookedFacilities->isNotEmpty())
+                            @if($booking->bookedFacilities->isNotEmpty())
                                 <h4 class="font-semibold mt-4">Facilities:</h4>
                                 <ul>
                                     @foreach ($booking->bookedFacilities as $facility)
                                         <li>{{ $facility->facility->name ?? 'N/A' }} - {{ $facility->quantity }}</li>
                                     @endforeach
                                 </ul>
-                            @endif --}}
+                            @endif
                             <p><strong>Total Amount:</strong> RM{{ number_format($booking->total_amount, 2) }}</p>
                             <p><strong>Confirmed:</strong> {{ $booking->confirmed ? 'Yes' : 'No' }}</p>
-                            <p>*Deposit Rm200 is included into Total Amount*</p>
+                            <p>*Deposit RM200 is included in the Total Amount*</p>
                         </div>
                     </li>
                 @empty

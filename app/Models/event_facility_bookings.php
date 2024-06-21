@@ -43,7 +43,7 @@ class event_facility_bookings extends Model
 
     public function bookedFacilities()
     {
-        return $this->hasMany(Booked_Facility::class);
+        return $this->hasMany(Booked_Facility::class, 'event_facility_booking_id');
     }
 
     

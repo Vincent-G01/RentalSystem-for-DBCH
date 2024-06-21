@@ -5,14 +5,14 @@ namespace App\Livewire;
 use Carbon\Carbon;
 use App\Models\Halls;
 use App\Models\Events;
-use Livewire\Component;
 use App\Models\Facilities;
 use App\Models\Booked_Facility;
+use App\Models\Event_Facility_Bookings;
+use App\Models\Event_Facility_Rental;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Event_Facility_Rental;
-use App\Models\Event_Facility_Bookings;
+use Livewire\Component;
 
 class EventRental extends Component
 {
@@ -85,11 +85,11 @@ class EventRental extends Component
                     $existingBooking = Event_Facility_Bookings::where('halls_id', $this->selectedHall)
                         ->where('events_id', $this->eventType)
                         ->where('use_date', $value)
-                        ->where('confirmed', 0) // Only check for unconfirmed bookings
+                        ->where('confirmed', 1) // Only check for confirmed bookings
                         ->exists();
 
-                    if (!$existingBooking) {
-                        $fail('The selected date is  already booked this event.');
+                    if ($existingBooking) {
+                        $fail('The selected date is already booked for this event.');
                     }
                 },
             ],

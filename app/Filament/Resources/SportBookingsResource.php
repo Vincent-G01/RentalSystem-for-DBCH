@@ -4,7 +4,10 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\SportBookingsResource\Pages;
 use App\Filament\Resources\SportBookingsResource\RelationManagers;
+use App\Filament\Resources\SportBookingsResource\RelationManagers\BookedCourtsRelationManager;
+
 use App\Models\Sport_Bookings;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -16,6 +19,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class SportBookingsResource extends Resource
 {
     protected static ?string $model = Sport_Bookings::class;
+    
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -31,10 +35,10 @@ class SportBookingsResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('users.name')
-                ->label('Name')
-                ->searchable()
-                ->sortable(),
+                    Tables\Columns\TextColumn::make('users_id')
+                    ->label('Name')
+                    ->searchable()
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('halls.name')
                 ->label('Hall')
@@ -51,22 +55,41 @@ class SportBookingsResource extends Resource
                 ->searchable()
                 ->sortable(),
 
-                Tables\Columns\TextColumn::make('start_time')
-                ->label('Start time')
-                ->searchable()
-                ->sortable(),
+                Tables\Columns\TextColumn::make('bookedCourts.court_number')
+                    ->label('Court Number')
+                    ->searchable()
+                    ->sortable(),
 
-                Tables\Columns\TextColumn::make('end_time')
-                ->label('End time')
-                ->searchable()
-                ->sortable(),
+                Tables\Columns\TextColumn::make('bookedCourts.start_time')
+                    ->label('Start Time')
+                    ->searchable()
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('bookedCourts.end_time')
+                    ->label('End Time')
+                    ->searchable()
+                    ->sortable(),
+
+                // Tables\Columns\TextColumn::make('start_time')
+                // ->label('Start time')
+                // ->searchable()
+                // ->sortable(),
+
+                // Tables\Columns\TextColumn::make('end_time')
+                // ->label('End time')
+                // ->searchable()
+                // ->sortable(),
 
                 Tables\Columns\TextColumn::make('total_amount')
                 ->label('Total amount')
                 
                 ->sortable(),
 
-                Tables\Columns\TextColumn::make('confirmed'),
+                Tables\Columns\IconColumn::make('confirmed')
+                ->label('Confirmed')
+                ->boolean()
+                ->sortable(),
+                
                 
 
                 Tables\Columns\TextColumn::make('reserved_at'),
@@ -74,6 +97,8 @@ class SportBookingsResource extends Resource
 
             ])
             ->filters([
+                Tables\Filters\Filter::make('Confirmed')
+                    ->query(fn (Builder $query) => $query->where('confirmed', 1)),
                
             ])
             ->actions([
@@ -89,8 +114,8 @@ class SportBookingsResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
+        return[
+
         ];
     }
 
